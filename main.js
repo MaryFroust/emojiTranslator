@@ -19,27 +19,33 @@ function submit(){
        console.log(madlib(textbox.value))
     }else if(selected === "translate"){
         document.querySelector('#results').innerText = translate(textbox.value)
+        
+        //console.log(translate(textbox.value))
         textbox.value = ""
-        console.log(translate(textbox.value))
     
     }else if(selected === "search"){
-        results.innerHTML = ''
+        results.innerHTML = "" //Instead of merely setting the `.innerText` of our `<h1 id="results">` to this array of objects, clear the current content of our `<h1 id="results">` output.
         const list = search(textbox.value)
+        if(list.length === 0){
+       results.innerText = "no emoji's found"
+        }
         for(let emoji of list){
             const p = document.createElement('p') 
             p.innerText = emoji.symbol
             results.appendChild(p)
-        }
-        
-        
-        
-        textbox.value = ""
-       // console.log(search(textbox.value))
+         }
+       
+        //console.log(search(textbox.value))
+         textbox.value = ""
 
     }else if(selected === "random"){
-        document.querySelector('#results').innerText = random(textbox.value)
-        textbox.value = ""
-        console.log(random(textbox.value))
+        const randomFeature = [encode,translate,madlib,search]
+        const randomIndex =Math.floor(Math.random() * randomFeature.length)
+        const sumnElse = randomFeature[randomIndex](textbox.value)
+        
+        // document.querySelector('#results').innerText = random(textbox.value)
+        // textbox.value = ""
+         console.log(sumnElse)
     }
 }
 
